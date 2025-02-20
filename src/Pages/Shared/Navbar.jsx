@@ -5,7 +5,9 @@ const Navbar = () => {
       <div>
         <div className="navbar bg-base-100">
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">daisyUI</a>
+            <a className=" font-bold text-2xl">
+              <em>Planova</em>
+            </a>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
