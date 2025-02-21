@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from './Layout/MainLayout.jsx';
 import ErrorPage from './Components/ErrorPage.jsx';
 import Home from './Pages/Home/Home.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

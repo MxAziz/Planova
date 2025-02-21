@@ -1,5 +1,17 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {
+  DndContext,
+  closestCorners,
+  useSensor,
+  useSensors,
+  PointerSensor,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import TaskColumn from "./TaskColumn";
 
 const initialTasks = {
   todo: [
@@ -13,63 +25,64 @@ const initialTasks = {
 const TaskBoard = () => {
   const [tasks, setTasks] = useState(initialTasks);
 
-  const onDragEnd = (result) => {
-    const { source, destination } = result;
+  // drag event handleling.
+  const onDragEnd = (event) => {
+    const { active, over } = event;
 
-    if (!destination) return; // যদি ড্রপ করা না হয়
+    // if (!over) return; // jodi drop na hoi.
 
-    const sourceColumn = source.droppableId;
-    const destinationColumn = destination.droppableId;
+    const activeId = active.id;
+    const overId = over.id;
 
-    const sourceTasks = [...tasks[sourceColumn]];
-    const destinationTasks = [...tasks[destinationColumn]];
+    // jodi akoi column ar moddhe thake.
+    const sourceColumn = Object.keys(tasks).find((key) =>
+      tasks[key].some((task) => task.id === activeId)
+    );
+    const destinationColumn = Object.keys(tasks).find((key) =>
+      tasks[key].some((task) => task.id === overId)
+    );
 
-    const [movedTask] = sourceTasks.splice(source.index, 1);
+    if (sourceColumn === destinationColumn) {
+      const updatedTasks = [...tasks[sourceColumn]];
+      const oldIndex = updatedTasks.findIndex((task) => task.id === activeId);
+      const newIndex = updatedTasks.findIndex((task) => task.id === overId);
+      const reorderedTasks = arrayMove(updatedTasks, oldIndex, newIndex);
 
-    destinationTasks.splice(destination.index, 0, movedTask);
+      setTasks({
+        ...tasks,
+        [sourceColumn]: reorderedTasks,
+      });
+    } else {
+      // jodi onno column a drag kore.
+      const sourceTasks = [...tasks[sourceColumn]];
+      const destinationTasks = [...tasks[destinationColumn]];
 
-    setTasks({
-      ...tasks,
-      [sourceColumn]: sourceTasks,
-      [destinationColumn]: destinationTasks,
-    });
+      const movedTask = sourceTasks.find((task) => task.id === activeId);
+      sourceTasks.splice(sourceTasks.indexOf(movedTask), 1);
+      destinationTasks.splice(destinationTasks.indexOf(overId), 0, movedTask);
+
+      setTasks({
+        ...tasks,
+        [sourceColumn]: sourceTasks,
+        [destinationColumn]: destinationTasks,
+      });
+    }
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DndContext collisionDetection={closestCorners} onDragEnd={onDragEnd}>
       <div className="flex gap-5 p-5">
         {Object.entries(tasks).map(([columnId, columnTasks]) => (
-          <Droppable key={columnId} droppableId={columnId}>
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="w-1/3 p-3 border border-gray-700 rounded-md bg-gray-900"
-              >
-                <h2 className="text-lg font-bold text-white capitalize">
-                  {columnId.replace(/([A-Z])/g, " $1")}
-                </h2>
-                {columnTasks.map((task, index) => (
-                  <Draggable key={task.id} draggableId={task.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="p-3 mt-2 bg-gray-800 text-white rounded-md shadow-md"
-                      >
-                        {task.title}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <SortableContext
+            key={columnId}
+            items={columnTasks}
+            strategy={verticalListSortingStrategy}
+          >
+            <TaskColumn columnId={columnId} tasks={columnTasks} />
+          </SortableContext>
         ))}
       </div>
-    </DragDropContext>
+    </DndContext>
   );
 };
 
