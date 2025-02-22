@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import ThemeToggle from "../../Components/ThemeToggle";
 import { SiTask } from "react-icons/si";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+
+  const { user, signOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+    const handleLogOut = () => {
+      signOutUser()
+        .then(() => {
+          navigate("/");
+          toast.success("Sign out successful");
+        })
+        .catch((error) => {
+          console.log("ERROR:", error);
+          toast.warning("Sign out Failed !")
+        });
+    };
+
   return (
     <div>
       <div className="navbar bg-base-100 dark:bg-[#2B2C37] dark:text-white lg:px-8 px-3">
@@ -41,15 +60,11 @@ const Navbar = () => {
             >
               <li>
                 <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                  {user.email}
                 </a>
               </li>
               <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
+                <a onClick={handleLogOut}>Logout</a>
               </li>
             </ul>
           </div>
@@ -73,14 +88,16 @@ const Navbar = () => {
               ></label>
               <ul className="menu bg-base-200 dark:bg-[#2B2C37] dark:text-white text-base-content min-h-full w-52 p-4">
                 {/* Sidebar content here */}
+                <li className="text-2xl font-bold mb-1">Planova</li>
+                <li>
+                  { user.email}
+                </li>
+                <div className="divider"></div>
                 <li>
                   <a>Add New Task</a>
                 </li>
                 <li>
-                  <a>Profile</a>
-                </li>
-                <li>
-                  <a>Logout</a>
+                  <button onClick={handleLogOut}>Logout</button>
                 </li>
               </ul>
             </div>
