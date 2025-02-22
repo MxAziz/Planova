@@ -24,7 +24,7 @@ const Landing = () => {
         to="/login"
         className="px-6 py-3 bg-[#635FC7] hover:bg-blue-700 text-white font-semibold rounded-lg"
       >
-        Get Started
+        Registration Now !
       </Link>
     </div>
   );
