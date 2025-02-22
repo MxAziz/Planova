@@ -15,10 +15,10 @@ const Landing = () => {
         <SiTask className=" text-5xl" />
         <em>Planova</em>
       </h1>
-      <h1 className="text-4xl font-bold mb-4">Welcome to Our Platform</h1>
       <p className="text-lg mb-6 max-w-xl">
-        Discover new opportunities and take the first step towards success with
-        us.
+        A simple and efficient task management tool with drag-and-drop support,
+        task due date alerts, and an activity log. Stay organized and track your
+        progress effortlessly.
       </p>
       <Link
         to="/login"
