@@ -7,8 +7,12 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
 
-  const { user, signOutUser } = useContext(AuthContext);
+  const { loading, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (loading) {
+    <div className=" loading-spinner"></div>
+  }
 
     const handleLogOut = () => {
       signOutUser()
@@ -26,10 +30,10 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-100 dark:bg-[#2B2C37] dark:text-white lg:px-8 px-3">
         <div className="flex-1">
-          <a className=" font-bold text-2xl flex items-center gap-2">
+          <Link to={"/home"} className=" font-bold text-2xl flex items-center gap-2">
             <SiTask className=" text-3xl" />
             <em>Planova</em>
-          </a>
+          </Link>
         </div>
         <div className="flex-none gap-4">
           {/* add task */}
@@ -56,11 +60,11 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 dark:bg-gray-700 rounded-box z-[1] mt-3 w-52 p-4 font-bold shadow"
             >
-              <li>
-                <a className="justify-between">{user.email}</a>
-              </li>
+              {/* <li> */}
+                {/* <a className="justify-between">{user.email}</a> */}
+              {/* </li> */}
               <li>
                 <a onClick={handleLogOut}>Logout</a>
               </li>
@@ -87,7 +91,7 @@ const Navbar = () => {
               <ul className="menu bg-base-200 dark:bg-[#2B2C37] dark:text-white text-base-content min-h-full w-52 p-4">
                 {/* Sidebar content here */}
                 <li className="text-2xl font-bold mb-1">Planova</li>
-                <li>{user.email}</li>
+                {/* <li>{user.email}</li> */}
                 <div className="divider"></div>
                 <Link to={"/home/addTask"}>
                   <a>Add New Task</a>
