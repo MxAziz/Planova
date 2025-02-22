@@ -96,12 +96,12 @@ const JoinEmployee = () => {
 
   return (
     <div className="dark:bg-gray-600 dark:text-white">
-      <div className="pt-[70px] pb-16 w-2/3 mx-auto flex flex-row-reverse">
+      <div className="pt-4 pb-8  w-2/3 mx-auto flex flex-row-reverse">
         {/* image */}
         <figure className="hidden lg:block">
           <img
             className=" h-full w-[450px] shadow-2xl rounded-r-lg rounded-bl-lg"
-            src="https://i.pinimg.com/474x/ee/e2/79/eee279c7d9b4c4e5fc060a9f9bb61c5f.jpg"
+            src="https://i.pinimg.com/474x/48/0c/b0/480cb009f12cb42fdd99b210562f2cdd.jpg"
             alt=""
           />
         </figure>

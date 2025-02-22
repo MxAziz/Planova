@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import ThemeToggle from "../../Components/ThemeToggle";
 import { SiTask } from "react-icons/si";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="flex-none gap-4">
           {/* add task */}
           <div className=" bg-[#635FC7] hidden lg:block text-white px-3 py-2 rounded-xl">
-            <button>Add New Task</button>
+            <Link to={"/home/addTask"}>Add New Task</Link>
           </div>
           {/* theme toggle */}
           <div className="">
@@ -59,9 +59,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">
-                  {user.email}
-                </a>
+                <a className="justify-between">{user.email}</a>
               </li>
               <li>
                 <a onClick={handleLogOut}>Logout</a>
@@ -89,13 +87,11 @@ const Navbar = () => {
               <ul className="menu bg-base-200 dark:bg-[#2B2C37] dark:text-white text-base-content min-h-full w-52 p-4">
                 {/* Sidebar content here */}
                 <li className="text-2xl font-bold mb-1">Planova</li>
-                <li>
-                  { user.email}
-                </li>
+                <li>{user.email}</li>
                 <div className="divider"></div>
-                <li>
+                <Link to={"/home/addTask"}>
                   <a>Add New Task</a>
-                </li>
+                </Link>
                 <li>
                   <button onClick={handleLogOut}>Logout</button>
                 </li>

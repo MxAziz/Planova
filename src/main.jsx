@@ -13,6 +13,7 @@ import Login from './Pages/Login/Login.jsx';
 import StartLayout from './Layout/StartLayout.jsx';
 import Landing from './Pages/Landing/Landing';
 import Registration from './Pages/Login/Registration.jsx';
+import AddTask from './Pages/Task/AddTask.jsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
               </PrivateRoute>
             ),
           },
+          {
+            path: "/home/addTask",
+            element: <AddTask></AddTask>
+          }
         ],
       },
       {
