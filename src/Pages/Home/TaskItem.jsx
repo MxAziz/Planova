@@ -34,7 +34,7 @@ const TaskItem = ({ task }) => {
     id: task._id,
   });
 
-  console.log(`Task Draggable: ${task.title}, ID: ${task._id}`);
+  // console.log(`Task Draggable: ${task.title}, ID: ${task._id}`);
 
   return (
     <div

@@ -17,12 +17,12 @@ const AddTask = () => {
         description: form.description.value,
       date: Date.now(),
       };
-      console.log(formData);
+      // console.log(formData);
 
     axiosPublic
       .post("/tasks", formData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.insertedId) {
           toast.success("Task Added successfully!");
           navigate("/home");

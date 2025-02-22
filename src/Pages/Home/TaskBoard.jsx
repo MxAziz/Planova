@@ -132,11 +132,6 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import TaskColumn from "./TaskColumn";
 
-// const fetchTasks = async () => {
-//   const res = await fetch("http://localhost:5000/tasks");
-//   return res.json();
-// };
-
 const TaskBoard = () => {
   const queryClient = useQueryClient();
  const {
@@ -146,17 +141,17 @@ const TaskBoard = () => {
  } = useQuery({
    queryKey: ["tasks"],
    queryFn: async () => {
-     const res = await fetch("http://localhost:5000/tasks");
+     const res = await fetch("https://planova1.vercel.app/tasks");
      const data = await res.json();
-     console.log("Fetched Tasks:", data);
+    //  console.log("Fetched Tasks:", data);
      return data;
    },
  });
 
   const moveTaskMutation = useMutation({
     mutationFn: async (updatedTask) => {
-      console.log("Updating Task:", updatedTask);
-      await fetch(`http://localhost:5000/tasks/${updatedTask._id}`, {
+      // console.log("Updating Task:", updatedTask);
+      await fetch(`https://planova1.vercel.app/tasks/${updatedTask._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTask),
@@ -171,7 +166,7 @@ const TaskBoard = () => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
-    console.log(`Dragging from ${active.id} to ${over.id}`);
+    // console.log(`Dragging from ${active.id} to ${over.id}`);
 
     const draggedTask = tasks.find((task) => task._id === active.id);
     if (!draggedTask) return;

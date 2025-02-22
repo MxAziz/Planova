@@ -21,7 +21,7 @@ const Navbar = () => {
           toast.success("Sign out successful");
         })
         .catch((error) => {
-          console.log("ERROR:", error);
+          // console.log("ERROR:", error);
           toast.warning("Sign out Failed !")
         });
     };

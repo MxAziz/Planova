@@ -22,6 +22,7 @@
 
 // export default TaskColumn;
 
+// try another one
 
 // import TaskItem from "./TaskItem";
 
@@ -45,7 +46,7 @@ import TaskItem from "./TaskItem";
 const TaskColumn = ({ id, title, tasks }) => {
   const { setNodeRef } = useDroppable({ id });
 
-  console.log(`Column Loaded: ${title} with ID: ${id}`);
+  // console.log(`Column Loaded: ${title} with ID: ${id}`);
 
   return (
     <div
